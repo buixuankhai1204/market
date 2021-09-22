@@ -3,20 +3,28 @@ require_once '../myhelper.php';
 class customer
 {
     // Properties
-    public $customerId;
+    public $userName;
     public $fullName;
     public $password;
+    public $email;
+    public $phone_number;
+    public $birthday;
     public $address;
-    public $city;
+    public $created_at;
+    public $updated_at;
+    public $active_status;
 
-    public function __construct($customerId, $fullName, $password, $address, $city)
+    public function __construct($userName,$fullName, $password, $phone_number, $birthday, $address, $created_at, $updated_at, $active_status)
     {
-
-        $this->customerId = $customerId;
+        $this->userName = $userName;
         $this->fullName = $fullName;
         $this->password = $password;
         $this->address = $address;
-        $this->city = $city;
+        $this->phone_number = $phone_number;
+        $this->birthday = $birthday;
+        $this->created_at = $created_at;
+        $this->updated_at = $updated_at;
+        $this->active_status = $active_status;
 
     }
 

@@ -2,22 +2,22 @@
 session_start();
 require_once '../myhelper.php';
 
-$customerId= $_POST['customerId'];
+$userName= $_POST['userName'];
 $password= $_POST['password'];
-$checkLogin= new checkLogin($customerId,$password);
+$checkLogin= new checkLogin($userName,$password);
 $checkLogin->checkLogin($checkLogin);
 
 
 class checkLogin {
 
-    private $customerId;
+    private $userName;
     private $password;
     
 
-    public function __construct($customerId, $password)
+    public function __construct($userName, $password)
     {
 
-        $this->customerId = $customerId;
+        $this->fullName = $userName;
         $this->password = $password;
 
     }
@@ -27,7 +27,7 @@ class checkLogin {
         $password_hash = md5($checkLogin->password);
         try {
 
-            if ($checkLogin->customerId === "" || $checkLogin->password === "") {
+            if ($checkLogin->userName === "" || $checkLogin->password === "") {
                 $array_respone = [
                     "success" => false,
                     "status_code" => 100,
@@ -38,7 +38,7 @@ class checkLogin {
 
             }
 
-            $query = "SELECT CustomerID,FullName,Password FROM customers WHERE CustomerID = $checkLogin->customerId";
+            $query = "SELECT UserName,FullName,Password FROM customers WHERE UserName = $checkLogin->userName";
             $row = json_decode(responeCheckQuery($query));
             
             if ($row === []) {
@@ -66,8 +66,7 @@ class checkLogin {
                     echo json_encode($array_respone);
 
                 } else {
-                    
-                    $_SESSION['info_customer']['customerId'] = $row->data[0]->CustomerID;
+                    $_SESSION['info_customer']['userName'] = $row->data[0]->userName;
                     $_SESSION['info_customer']['fullname'] = $row->data[0]->FullName;
                     $_SESSION['cart']['totalPrice'] = 0;
                     $_SESSION['cart']['product'] = [];
