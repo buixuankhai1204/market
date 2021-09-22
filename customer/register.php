@@ -25,6 +25,10 @@
         </div>
         <div class="panel-body">
             <form action="" method="POST">
+            <div class="form-group">
+                    <label for="usr">UserName: </label>
+                    <input required="true" type="text" class="form-control fullname" name="userName" id="userName" value="">
+                </div>
                 <div class="form-group">
                     <label for="usr">Fullname: </label>
                     <input required="true" type="text" class="form-control fullname" name="fullname" id="fullname" value="">
@@ -38,8 +42,24 @@
                     <input required="true" type="text" class="form-control address" name="address" id="address" value="">
                 </div>
                 <div class="form-group">
-                    <label for="pwd">city:</label>
-                    <input required="true" type="text" class="form-control city" name="city" id="city" value="">
+                    <label for="pwd">phone - number:</label>
+                    <input required="true" type="text" class="form-control phone_number" name="phone_number" id="phone_number" value="">
+                </div>
+                <div class="form-group">
+                    <label for="pwd">birthday:</label>
+                    <input required="true" type="text" class="form-control birthday" name="birthday" id="birthday" value="">
+                </div>
+                <div class="form-group">
+                    <label for="pwd">created - at:</label>
+                    <input required="true" type="text" class="form-control created_at" name="created_at" id="created_at" value="">
+                </div>
+                <div class="form-group">
+                    <label for="pwd">updated - at:</label>
+                    <input required="true" type="text" class="form-control updated_at" name="updated_at" id="updated_at" value="">
+                </div>
+                <div class="form-group">
+                    <label for="pwd">active statsus:</label>
+                    <input required="true" type="text" class="form-control active_statsus" name="active_statsus" id="active_statsus" value="">
                 </div>
                 <button class="btn btn-success" name="btn-success">register</button>
             </form>
@@ -50,18 +70,29 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script>
     $(".btn-success").click(function() {
+        var userName = $("#userName").val();
         var fullname = $("#fullname").val();
         var password = $("#password").val();
         var address = $("#address").val();
-        var city = $("#city").val();
+        var birthday = $("#birthday").val();
+        var phone_number = $("#phone_number").val();
+        var created_at = $("#created_at").val();
+        var updated_at = $("#updated_at").val();
+        var active_statsus = $("#active_status")
         $.ajax({
             url: "https://localhost/market/customer/saveRegister.php",
+            url: "https://localhost/market/customer/checkRehister.php",
             type: "post",
             data: {
+                userName: userName,
                 fullname: fullname,
                 password: password,
                 address: address,
-                city: city,
+                birthday: birthday,
+                phone_number: phone_number,
+                created_at: created_at,
+                updated_at: updated_at,
+                active_statsus: active_statsus,
             },
             dataType: "json",
             success: function(result) {

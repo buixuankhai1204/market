@@ -27,7 +27,7 @@
             <form action="" method="post">
                 <div class="form-group">
                     <label for="usr">your's ID: </label>
-                    <input required="true" type="text" class="form-control" name="customerId" id="usr">
+                    <input required="true" type="text" class="form-control" name="userName" id="usr">
                 </div>
                 <div class="form-group">
                     <label for="pwd">Password:</label>
@@ -44,14 +44,14 @@
 <script>
     $(".btn-success").click(function() {
 
-        var customerId = $("#usr").val();
+        var userName = $("#usr").val();
         var password = $("#pwd").val();
 
         $.ajax({
             url: "http://localhost/market/customer/checkLogin.php",
             type: "post",
             data: {
-                customerId: customerId,
+                userName: userName,
                 password: password,
             },
             dataType: "json",
