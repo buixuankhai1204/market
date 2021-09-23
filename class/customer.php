@@ -28,12 +28,12 @@ class customer
 
     }
 
-    public function getCustomerById($customerId)
+    public function getCustomerById($userName)
     {
 
         try {
 
-            if ($customerId == "") {
+            if ($userName == "") {
 
                 $array_respone = [
                     "success" => false,
@@ -45,7 +45,7 @@ class customer
 
             }
 
-            $query = "SELECT * FROM customers WHERE CustomerID = $customerId";
+            $query = "SELECT * FROM customers WHERE CustomerID = $userName";
             echo responeCheckQuery($query);
 
         } catch (Exception $e) {
@@ -60,10 +60,15 @@ class customer
         try {
 
             if (
-                $customer->fullName === ''
+                $customer->userName === ''
                 || $customer->password === ''
                 || $customer->address === ''
-                || $customer->city === ''
+                || $customer->fullName === ''
+                || $customer->phone_number === ''
+                || $customer->birthday === ''
+                || $customer->created_at === ''
+                || $customer->updated_at === ''
+                || $customer->active_status === ''
             ) {
 
                 $array_respone = [
@@ -76,7 +81,7 @@ class customer
 
             }
             // $customer->password, $customer->fullName , $customer->address, $customer->city
-            $query = sprintf("INSERT INTO customers ( CustomerID, FullName, password, address, city) VALUES (%s,'%s','%s','%s','%s')",$customer->customerId, $customer->fullName, md5($customer->password), $customer->address, $customer->city);
+            $query = printf("INSERT INTO customers ( username, fullname, password, address, phoneNumber, birthday, creatAt, updateAt, activeStatus) VALUES (%s,'%s','%s','%s','%s','%s','%s','%s','%s')",$customer->userName, $customer->fullName, md5($customer->password), $customer->address, $customer->phone_number, $customer->birthday, $customer->created_at, $customer->updated_at, $customer->active_status);
             if (!$result = mysqli_query(connection(), $query)) {
 
                 mysqli_error(connection());
@@ -84,7 +89,7 @@ class customer
             }
             if ($result) {
 
-                $customer->getCustomerById($customer->customerId);
+                $customer->getCustomerById($customer->userName);
 
             } else {
 
