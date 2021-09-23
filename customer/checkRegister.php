@@ -1,6 +1,7 @@
 <?php
 session_start();
 require_once '../myhelper.php';
+require_once '../validate.php';
 $userName = $_POST['userName'];
 $fullName = $_POST['fullname'];
 $password = $_POST['password'];
@@ -45,11 +46,9 @@ class checkRegister {
                 $error_code['checkRegister'] = $error_register;
             }
             else{
-                $parttern = "/^[A-Za-z0-9_\.]{6,32}$/";
-                if(!preg_match($parttern, $_POST['userName'])){
-                    $error_code['userName'] = "userbame sai";
+                
+                $error_code['userName'] = validateUserName($_POST['userName']);
 
-                }
                 $parttern1 = "/^([A-Z]){1}([\w_\.!@#$%^&*()]+){5,31}$/";
                 if(!preg_match($parttern1, $_POST['password'])){
                     $error_code = array(
