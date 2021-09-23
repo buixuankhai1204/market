@@ -15,6 +15,7 @@ $active_status = $_POST['active_status'];
 $checkRegister = new checkRegister($userName,$fullName,$password,$address,$phone_number,$birthday,$created_at,$updated_at,$active_status);
 $checkRegister->checkRegister($checkRegister);
 $customer = new customer($userName,$fullName,$password,$address,$phone_number,$birthday,$created_at,$updated_at,$active_status);
+$userName = random_int(100,1000000);
 
 class checkRegister {
     private $userName;
@@ -74,7 +75,9 @@ class checkRegister {
                         ];
                         echo json_encode($array_respone);
                     }
-                }
+                };
+                $customer= new customer($checkRegister->userName, $checkRegister->fullName, $checkRegister->password, $checkRegister->address, $checkRegister->phone_number, $checkRegister->birthday, $checkRegister->created_at, $checkRegister->updated_at, $checkRegister->active_status);
+                $customer->addCustomer($customer);
             }
             
         } catch (\Throwable $th) {
