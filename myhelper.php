@@ -46,7 +46,7 @@ function responeField($field)
     }
 }
 
-function checkPasswordHash($userName, $password){
+function getPasswordHash($userName, $password){
     $userName = $_POST['userName'];
     $password = $_POST['password'];
     $usernameHash = md5($userName);
