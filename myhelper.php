@@ -45,3 +45,18 @@ function responeField($field)
         return $respone;
     }
 }
+
+function checkPasswordHash($userName, $password){
+    $userName = $_POST['userName'];
+    $password = $_POST['password'];
+    $usernameHash = md5($userName);
+    $passwordHash = $usernameHash.md5($password);
+        if($passwordHash){
+            $array_respone = [
+            "success" => true,
+            "status_code" => 200,
+            "error" => false,
+        ];
+        echo json_encode($array_respone);
+    }
+}

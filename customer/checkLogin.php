@@ -17,7 +17,7 @@ class checkLogin {
     public function __construct($userName, $password)
     {
 
-        $this->fullName = $userName;
+        $this->userName = $userName;
         $this->password = $password;
 
     }

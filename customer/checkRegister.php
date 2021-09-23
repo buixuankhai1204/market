@@ -38,65 +38,61 @@ class checkRegister {
 
     public function checkRegister(checkRegister $checkRegister){
         try {
-
+            $error_code = array();
             if($checkRegister->userName === "" || $checkRegister->fullName === "" || $checkRegister->password === "" || $checkRegister->address === "" || $checkRegister->phone_number === "" || $checkRegister->birthday === "" || $checkRegister->created_at ==="" || $checkRegister->updated_at === "" || $checkRegister -> active_status === ""){
-                $array_respone = [
-                    "success" => false,
-                    "status_code" => 100,
-                    "message" => "xin điền đầy đủ thông tin",
-                    "error" => true,
-                ];
-                echo json_encode($array_respone);
+                $error_register = "xin nhập đầy đủ tất cả thông tin";
+
+                $error_code['checkRegister'] = $error_register;
             }
             else{
                 $parttern = "/^[A-Za-z0-9_\.]{6,32}$/";
                 if(!preg_match($parttern, $_POST['userName'])){
-                    $array_respone = [
-                        "success" => false,
-                        "status_code" => 100,
-                        "message" => "xin nhập tài khoản đúng định dạng",
-                        "error" => true,
-                    ];
-                    echo json_encode($array_respone);
+                    $error_code['userName'] = "userbame sai";
+
                 }
-                
                 $parttern1 = "/^([A-Z]){1}([\w_\.!@#$%^&*()]+){5,31}$/";
                 if(!preg_match($parttern1, $_POST['password'])){
-                    $array_respone = [
-                        "success" => false,
-                        "status_code" => 100,
-                        "message" => "xin nhập ,ật khẩu đúng định dạng",
-                        "error" => true,
-                    ];
-                    echo json_encode($array_respone);
+                    $error_code = array(
+                        $error_code['password'] => "xin nhập mật khẩu đúng định dạng",
+                    );
                 }
-                
                 $parttern2 = "/^[A-Za-z0-9_.]{6,32}@([a-zA-Z0-9]{2,12})(.[a-zA-Z]{2,12})+$/";
-                if(!preg_match($parttern2, $_POST['password'])){
-                    $array_respone = [
-                        "success" => false,
-                        "status_code" => 100,
-                        "message" => "xin nhập email đúng định dạng",
-                        "error" => true,
-                    ];
-                    echo json_encode($array_respone);
+                if(!preg_match($parttern2, $_POST['email'])){
+                    $error_password = "xin nhập email đúng định dạng";
+                    $error_code = array(
+                        $error_code['email'] => $error_password,
+                    );
                 }
-                
+                // viet ham trong myhelper  2 tham so dau vao la username va password, xu ly va trar ve hash password
                 $data = '+11234567890';
                 if(!preg_match( '/^\+\d(\d{3})(\d{3})(\d{4})$/', $data,  $matches ) )
                 {
-                    $array_respone = [
-                        "success" => false,
-                        "status_code" => 100,
-                        "message" => "xin nhập số điện thoại đúng định dạng",
-                        "error" => true,
-                    ];
-                    echo json_encode($array_respone);
+                    $error_code = array(
+                        $error_code['phone_number'] => "xin nhập số điện thoại đúng định dạng",
+                    );
+                    echo json_encode($error_code);
                 }
                 else{
                     $result = $matches[1] . '-' .$matches[2] . '-' . $matches[3];
                     return $result;
                 }
+
+                if(isset($error_code)){
+                    $array_respone = array(
+                        "message" => $error_code,
+                    );
+                }else{
+                    $passwordHash = checkPasswordHash($checkRegister->userName, $checkRegister->password);
+                    if($passwordHash){
+                        $array_respone = [
+                            "success" => true,
+                            "status_code" => 200,
+                            "error" => false,
+                        ];
+                        echo json_encode($array_respone);
+                    }
+                }
+    
             }
             
         } catch (\Throwable $th) {
