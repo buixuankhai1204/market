@@ -35,14 +35,12 @@ class checkLogin {
                     "error" => true,
                 ];
                 echo json_encode($array_respone);
-
             }
 
             $query = "SELECT UserName,FullName,Password FROM customers WHERE UserName = $checkLogin->userName";
             $row = json_decode(responeCheckQuery($query));
             
             if ($row === []) {
-
                 $array_respone = [
                     "success" => false,
                     "status_code" => 100,

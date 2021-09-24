@@ -48,7 +48,7 @@
         var password = $("#pwd").val();
 
         $.ajax({
-            url: "http://localhost/market/customer/checkLogin.php",
+            url: "http://localhost:81/market/customer/checkLogin.php",
             type: "post",
             data: {
                 userName: userName,
@@ -57,7 +57,7 @@
             dataType: "json",
             success: function(result) {
                 if (result['success'] == true) {
-                    window.location = "http://localhost/market/vegetable/index.php";
+                    window.location = "http://localhost:81/market/vegetable/index.php";
                 }
                 else {
                     alert(result['message']);

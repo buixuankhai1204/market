@@ -1,5 +1,6 @@
 <?php
 include_once 'connection.php';
+include_once 'register.php';
 function responeCheckQuery($query)
 {
     if (!$result = mysqli_query(connection(), $query)) {
@@ -51,12 +52,38 @@ function getPasswordHash($userName, $password){
     $password = $_POST['password'];
     $usernameHash = md5($userName);
     $passwordHash = $usernameHash.md5($password);
-        if($passwordHash){
-            $array_respone = [
-            "success" => true,
-            "status_code" => 200,
-            "error" => false,
+    return $passwordHash; 
+}
+
+function checkPassword($userName,$password){
+    $passwordHash = getPasswordHash($userName,$password);
+    $query = "SELECT UserName,FullName,Password FROM users WHERE UserName = $userName";
+    $row = json_decode(responeCheckQuery($query));
+    $respone = array();
+    if($row === []){
+        $respone = "account not invalid";
+        return $respone;
+    }
+    else if($passwordHash != $row->data[0]->password){
+        $respone = "password incorrect";
+        return $respone;
+    }
+    else{
+        $_SESSION['info_customer']['userName'] = $row->data[0]->userName;
+        $_SESSION['info_customer']['fullname'] = $row->data[0]->FullName;
+    }
+    if($respone){
+        $array_respone = [
+            "success" => false,
+            "message" => $respone,
         ];
-        echo json_encode($array_respone);
+        return $array_respone;
+    }
+    else{
+        $array_respone = [
+            "success" => true,
+            "message" => "",
+        ];
+        return $array_respone;
     }
 }
