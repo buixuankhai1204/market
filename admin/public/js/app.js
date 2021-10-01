@@ -11,4 +11,26 @@ $(document).ready(function() {
         var checked = $(this).is(':checked');
         $('.table-checkall tbody tr td input:checkbox').prop('checked', checked);
     });
+
+    // $(".addCat").click(function(){
+    //     var categoryName = $('#name').val();
+    //     var parentId = $('#parentId option:selected').val();
+    //     $.ajax({
+    //         url: "http://localhost:81/market/admin/category/product/indexController.php",
+    //         type: "post",
+    //         data: {
+    //             categoryName: categoryName,
+    //             parentId:parentId,
+    //         },
+    //         dataType: "json",
+    //         success: function(result) {
+    //             if (result['success'] == true) {
+    //                 alert(result['message']);
+
+    //             } else {
+    //                 alert(result['message']);
+    //             }
+    //         },
+    //     });
+    // })
 });
