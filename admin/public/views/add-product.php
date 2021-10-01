@@ -60,5 +60,5 @@
                 <button type="submit" class="btn btn-primary">Thêm mới</button>
             </form>
         </div>
-    </div>
+    </div>  //ajax goi toi controller, tuong tu nhu da lam ben kia 
 </div>

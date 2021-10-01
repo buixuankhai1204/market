@@ -1,0 +1,9 @@
+<?php 
+
+    class product {
+        ///
+    }
+
+
+    //function ///
+?>
