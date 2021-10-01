@@ -56,22 +56,7 @@
                     <input required="true" type="text" class="form-control birthday" name="birthday" id="birthday" value="">
                     <p class="birthday"></p>
                 </div>
-                <div class="form-group">
-                    <label for="pwd">created - at:</label>
-                    <input required="true" type="text" class="form-control created_at" name="created_at" id="created_at" value="">
-                    <p class="created_at"></p>
-                </div>
-                <div class="form-group">
-                    <label for="pwd">updated - at:</label>
-                    <input required="true" type="text" class="form-control updated_at" name="updated_at" id="updated_at" value="">
-                    <p class="updated_at"></p>
-                </div>
-                <div class="form-group">
-                    <label for="pwd">active statsus:</label>
-                    <input required="true" type="text" class="form-control active_statsus" name="active_statsus" id="active_statsus" value="">
-                    <p class="active"></p>
-                </div>
-                <button class="btn btn-success" name="btn-success">register</button>
+                <button type="submit" class="btn btn-success" name="btn-success">register</button>
             </form>
 
         </div>
@@ -86,12 +71,9 @@
         var address = $("#address").val();
         var birthday = $("#birthday").val();
         var phone_number = $("#phone_number").val();
-        var created_at = $("#created_at").val();
-        var updated_at = $("#updated_at").val();
-        var active_statsus = $("#active_status")
+
         $.ajax({
-            url: "https://localhost/market/customer/saveRegister.php",
-            url: "https://localhost/market/customer/checkRehister.php",
+            url: "http://localhost:81/market/customer/saveRegister.php",
             type: "post",
             data: {
                 userName: userName,
@@ -100,25 +82,21 @@
                 address: address,
                 birthday: birthday,
                 phone_number: phone_number,
-                created_at: created_at,
-                updated_at: updated_at,
-                active_statsus: active_statsus,
             },
             dataType: "json",
             success: function(result) {
                 if (result['success'] == true) {
-                    window.location = "http://localhost/market/vegetable/index.php";
+                    window.location = "http://localhost:81/market/vegetable/index.php";
                 }
                 else {
-                    $(".username").html(result['message']['userName']);
-                    $(".fullname").html(result['message']['fullName']);
-                    $(".password").html(result['message']['password']);
-                    $(".address").html(result['message']['address']);
-                    $(".phone").html(result['message']['phone_number']);
-                    $(".birthday").html(result['message']['birthday']);
-                    $(".created_at").html(result['message']['created_at']);
-                    $(".updated_at").html(result['message']['updated_at']);
-                    $(".active").html(result['message']['active_status']);
+                    alert(result['message']['userName']);
+                    alert(result['message']['password']);
+                    // $(".username").html(result['message']['userName']);
+                    // $(".fullname").html(result['message']['fullname']);
+                    // $(".password").html(result['message']['password']);
+                    // $(".address").html(result['message']['address']);
+                    // $(".phone").html(result['message']['phone_number']);
+                    // $(".birthday").html(result['message']['birthday']);
                 }
             },
             error: function(jqXHR, textStatus, errorThrown){

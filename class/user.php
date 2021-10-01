@@ -1,8 +1,14 @@
+
 <?php
 require_once '../myhelper.php';
+require_once '../validate.php';
+
+
+
 class user
 {
     // Properties
+    private $userID;
     private $userName;
     private $fullName;
     private $password;
@@ -13,16 +19,15 @@ class user
     private $updated_at;
     private $active_status;
 
-    public function __construct($userName,$fullName,$password,$address,$phone_number,$birthday,$created_at,$updated_at,$active_status){
+    public function __construct($userID,$userName,$fullName,$password,$address,$phone_number,$birthday){
+        $this->userID = $userID;
         $this->userName = $userName;
         $this->fullName = $fullName;
         $this->password = $password;
         $this->address = $address;
         $this->phone_number = $phone_number;
         $this->birthday = $birthday;
-        $this->created_at = $created_at;
-        $this->updated_at = $updated_at;
-        $this->active_status = $active_status;
+
     }
 
     public function getCustomerById($userName)
@@ -54,45 +59,57 @@ class user
 
     public function addCustomer(User $user)
     {
+
         try {
             $error_code = array();
-            if($user->userName === "" || $user->fullName === "" || $user->password === "" || $user->address === "" || $user->phone_number === "" || $user->birthday === "" || $user->created_at ==="" || $user->updated_at === "" || $user -> active_status === ""){
-                $error_register = "xin nhập đầy đủ tất cả thông tin";
+            if($user->userName === "" || $user->fullName === "" || $user->password === "" || $user->address === "" || $user->phone_number === "" || $user->birthday === ""){
 
-                $error_code['user'] = $error_register;
+                $error_code['user'] = "xin nhập đầy đủ tất cả thông tin";
             }
             else{
+                if (validateUserName($_POST['userName']) != ""){
                 $error_code['userName'] = validateUserName($_POST['userName']);
 
+                }
+                if (validatePassword($_POST['password']) != ""){
                 $error_code['password'] = validatePassword($_POST['password']);
-                
-                $error_code['email'] = validateEmail($_POST['email']);
-                
-                $error_code['phone_number'] = validatePhoneNumber($_POST['phone_number']);
-
-                if(isset($error_code)){
+                }
+                // $error_code['phone_number'] = validatePhoneNumber($_POST['phone_number']);
+                // van de la , "" nay no cung la loi, gio minh xu ly sao cho, khong co loi thi khong co key , no moi thoat dc $errror_code
+                //hieu y t khong ?um
+                //hieu chua khoa um chay thu di
+                // sure la dc
+                 // :D
+                if(count($error_code)  > 0){
                     $array_respone = array(
                         "success" => false,
                         "status_code" => 100,
                         "message" => $error_code,
                         "error" => false,
                     );
-                    return $array_respone;
-                }else{
+                    echo json_encode($array_respone);
+                } else {
                     $passwordHash = getPasswordHash($user->userName, $user->password);
-                    if($passwordHash){
+                   
+                    $query = sprintf("INSERT INTO users ( userId, userName, fullName, password, address, birthday) VALUE (%s,'%s','%s','%s','%s','%s')", $user->userID, $user->userName, $user->fullName, $passwordHash, $user->address, $user->birthday);
+                    echo $query;
+                    if(!$result = mysqli_query(connection(), $query)){
+                        echo mysqli_error(connection());
+                    }
+                    else{
                         $array_respone = [
                             "success" => true,
-                            "status_code" => 200,
-                            "error" => false,
+                            "data" => null,
+                            "message" => "thêm người dùng thành công thành công",
+                            "error" => true,
                         ];
                         echo json_encode($array_respone);
                     }
                 }
             }
             
-        } catch (\Throwable $error) {
-            throw $error;
+        } catch (Exception $e) {
+            $e->getMessage();
         }
     }
 }
