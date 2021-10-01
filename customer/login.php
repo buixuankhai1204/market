@@ -17,14 +17,14 @@
     <div class="container">
     <div class="row">
                     <div class="col-md-12 p-3">
-                        <?php include 'menu.php'; ?>
+                        <!-- <?php include 'menu.php'; ?> -->
                     </div>
                 </div>
         <div class="col-md-12">
             <h1>login</h1>
         </div>
         <div class="panel-body">
-            <form action="" method="post">
+            <form action="http://localhost:81/market/customer/checkLogin.php" method="post">
                 <div class="form-group">
                     <label for="usr">your's ID: </label>
                     <input required="true" type="text" class="form-control" name="userName" id="usr">
@@ -33,14 +33,14 @@
                     <label for="pwd">Password:</label>
                     <input required="true" type="password" class="form-control" name="password" id="pwd">
                 </div>
-                <button class="btn btn-success">Login</button>
+                <button type="submit" class="btn btn-success">Login</button>
             </form>
 
         </div>
     </div>
 </body>
 
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script> -->
 <script>
     $(".btn-success").click(function() {
 
@@ -60,7 +60,7 @@
                     window.location = "http://localhost:81/market/vegetable/index.php";
                 }
                 else {
-                    alert(result['message']);
+                    alert(result['message']['login']);
                 }
                 
             },

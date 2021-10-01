@@ -1,6 +1,5 @@
 <?php
 include_once 'connection.php';
-include_once 'register.php';
 function responeCheckQuery($query)
 {
     if (!$result = mysqli_query(connection(), $query)) {
@@ -23,8 +22,8 @@ function responeCheckQuery($query)
     $array_respone = [
         "success" => true,
         "data" => $list,
-        "message" => "",
-        "error" => "lấy dữ liệu thành công",
+        "message" => "lấy dữ liệu thành công",
+        "error" => false,
     ];
     return json_encode($array_respone);
 }
@@ -48,8 +47,6 @@ function responeField($field)
 }
 
 function getPasswordHash($userName, $password){
-    $userName = $_POST['userName'];
-    $password = $_POST['password'];
     $usernameHash = md5($userName);
     $passwordHash = $usernameHash.md5($password);
     return $passwordHash; 
@@ -57,22 +54,26 @@ function getPasswordHash($userName, $password){
 
 function checkPassword($userName,$password){
     $passwordHash = getPasswordHash($userName,$password);
-    $query = "SELECT UserName,FullName,Password FROM users WHERE UserName = $userName";
+    $query = "SELECT * FROM users WHERE userName = '$userName'";
     $row = json_decode(responeCheckQuery($query));
+    // print_r($row);
     $respone = array();
-    if($row === []){
+    if($row->success === false){
         $respone = "account not invalid";
         return $respone;
     }
-    else if($passwordHash != $row->data[0]->password){
-        $respone = "password incorrect";
-        return $respone;
+    else
+    {
+        if($passwordHash != $row->data[0] -> password){
+            $respone = "password incorrect";
+            return $respone;
+        }  
+        else{
+            $_SESSION['info_customer']['userName'] = $row->data[0]->userName;
+            $_SESSION['info_customer']['fullname'] = $row->data[0]->FullName;
+        }
     }
-    else{
-        $_SESSION['info_customer']['userName'] = $row->data[0]->userName;
-        $_SESSION['info_customer']['fullname'] = $row->data[0]->FullName;
-    }
-    if($respone){
+    if(count($respone) > 0){
         $array_respone = [
             "success" => false,
             "message" => $respone,
@@ -87,3 +88,7 @@ function checkPassword($userName,$password){
         return $array_respone;
     }
 }
+//nhin ra van de chua 
+//tan dung cai success do de check chu Khoa oke
+//oke xong roi, doi t day code len 
+//m push code len di

@@ -10,8 +10,8 @@ $checkLogin->checkLogin($checkLogin);
 
 class checkLogin {
 
-    private $userName;
-    private $password;
+    public $userName;
+    public $password;
     
 
     public function __construct($userName, $password)
@@ -24,63 +24,33 @@ class checkLogin {
 
     public function checkLogin(checkLogin $checkLogin)
     {
-        $password_hash = md5($checkLogin->password);
+        $error_code = array();
         try {
-
             if ($checkLogin->userName === "" || $checkLogin->password === "") {
-                $array_respone = [
-                    "success" => false,
-                    "status_code" => 100,
-                    "message" => "lay du lieu khong lieu thanh cong",
-                    "error" => true,
-                ];
-                echo json_encode($array_respone);
+                $error_code['user'] = "tài khoản hoặc mật khẩu không được để trống";
             }
-
-            $query = "SELECT UserName,FullName,Password FROM customers WHERE UserName = $checkLogin->userName";
-            $row = json_decode(responeCheckQuery($query));
-            
-            if ($row === []) {
-                $array_respone = [
-                    "success" => false,
-                    "status_code" => 100,
-                    "data" => null,
-                    "message" => "account not invalid",
-                    "error" => false,
-                ];
-                echo json_encode($array_respone);
-
-            } else {
-
-                if ($password_hash != $row->data[0]->Password) {
-
-                    $array_respone = [
-                        "success" => false,
-                        "status_code" => 100,
-                        "data" => null,
-                        "message" => "password incorrect",
-                        "error" => false,
-                    ];
-                    echo json_encode($array_respone);
-
-                } else {
-                    $_SESSION['info_customer']['userName'] = $row->data[0]->userName;
-                    $_SESSION['info_customer']['fullname'] = $row->data[0]->FullName;
-                    $_SESSION['cart']['totalPrice'] = 0;
-                    $_SESSION['cart']['product'] = [];
-                    $array_respone = [
+            else{
+                $check = checkPassword($checkLogin->userName,$checkLogin->password);
+                $error_code['login'] = $check; 
+                // echo json_encode($check);
+                if($check['success'] == true){
+                    $array_repone = [
                         "success" => true,
                         "status_code" => 200,
-                        "message" => "login success",
+                        "message" => "Dn thanh cong",
                         "error" => false,
                     ];
-
-                    echo json_encode($array_respone);
-
+                    echo json_encode($array_repone);
+                } else {
+                    $array_repone = [
+                        "success" => false,
+                        "status_code" => 400,
+                        "message" => $check['message'],
+                        "error" => false,
+                    ];
+                    echo json_encode($array_repone); 
                 }
-            
             }
-
         } catch (Exception $e) {
             
             $e->getMessage();

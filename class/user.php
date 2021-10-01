@@ -62,10 +62,9 @@ class user
 
         try {
             $error_code = array();
-            if($user->userName === "" || $user->fullName === "" || $user->password === "" || $user->address === "" || $user->phone_number === "" || $user->birthday === "" || $user->created_at ==="" || $user->updated_at === "" || $user -> active_status === ""){
-                $error_register = "xin nhập đầy đủ tất cả thông tin";
+            if($user->userName === "" || $user->fullName === "" || $user->password === "" || $user->address === "" || $user->phone_number === "" || $user->birthday === ""){
 
-                $error_code['user'] = $error_register;
+                $error_code['user'] = "xin nhập đầy đủ tất cả thông tin";
             }
             else{
                 if (validateUserName($_POST['userName']) != ""){
@@ -75,7 +74,6 @@ class user
                 if (validatePassword($_POST['password']) != ""){
                 $error_code['password'] = validatePassword($_POST['password']);
                 }
-
                 // $error_code['phone_number'] = validatePhoneNumber($_POST['phone_number']);
                 // van de la , "" nay no cung la loi, gio minh xu ly sao cho, khong co loi thi khong co key , no moi thoat dc $errror_code
                 //hieu y t khong ?um
@@ -89,21 +87,13 @@ class user
                         "message" => $error_code,
                         "error" => false,
                     );
-                  
-                    return json_encode($array_respone);
-                }else{
+                    echo json_encode($array_respone);
+                } else {
                     $passwordHash = getPasswordHash($user->userName, $user->password);
-                    //cho nay la sao Khoa :|// sao lai tra loi cho nay, trong khi minh di lay cai hass pass
-                    // ua  so 228 o dau v Khoa dau biet dau haha
-                    // tat rpoi van hien la sao ta ? ua chu k chinh lai cai register r them a, nay gio lam v ma
-                    // sprintf moi dung, copy cung sai nua -.- haha
-                    // cach fix la, neu cam thay khong chac, thi echo ra thu, no co vao cho do khong,
-                    // tat ajax fix de hon
-                    // neu co query roi thi copy vo DB thu no co work khong
-                    // v nha oke
+                   
                     $query = sprintf("INSERT INTO users ( userId, userName, fullName, password, address, birthday) VALUE (%s,'%s','%s','%s','%s','%s')", $user->userID, $user->userName, $user->fullName, $passwordHash, $user->address, $user->birthday);
+                    echo $query;
                     if(!$result = mysqli_query(connection(), $query)){
-                        echo "asdasd";
                         echo mysqli_error(connection());
                     }
                     else{
@@ -118,8 +108,8 @@ class user
                 }
             }
             
-        } catch (\Throwable $error) {
-            throw $error;
+        } catch (Exception $e) {
+            $e->getMessage();
         }
     }
 }
