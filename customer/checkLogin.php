@@ -31,7 +31,7 @@ class checkLogin {
             }
             else{
                 $check = checkPassword($checkLogin->userName,$checkLogin->password);
-                $error_code['login'] = $check; 
+                print_r($check);
                 // echo json_encode($check);
                 if($check['success'] == true){
                     $array_repone = [
