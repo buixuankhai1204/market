@@ -24,7 +24,7 @@
             <h1>register</h1>
         </div>
         <div class="panel-body">
-            <form action="http://localhost:81/market/customer/saveRegister.php" method="POST">
+            <form action="" method="POST">
             <div class="form-group">
                     <label for="usr">UserName: </label>
                     <input required="true" type="text" class="form-control fullname" name="userName" id="userName" value="">
@@ -89,12 +89,14 @@
                     window.location = "http://localhost:81/market/vegetable/index.php";
                 }
                 else {
-                    $(".username").html(result['message']['userName']);
-                    $(".fullname").html(result['message']['fullName']);
-                    $(".password").html(result['message']['password']);
-                    $(".address").html(result['message']['address']);
-                    $(".phone").html(result['message']['phone_number']);
-                    $(".birthday").html(result['message']['birthday']);
+                    alert(result['message']['userName']);
+                    alert(result['message']['password']);
+                    // $(".username").html(result['message']['userName']);
+                    // $(".fullname").html(result['message']['fullname']);
+                    // $(".password").html(result['message']['password']);
+                    // $(".address").html(result['message']['address']);
+                    // $(".phone").html(result['message']['phone_number']);
+                    // $(".birthday").html(result['message']['birthday']);
                 }
             },
             error: function(jqXHR, textStatus, errorThrown){
