@@ -57,23 +57,21 @@ function checkPassword($userName,$password){
     $query = "SELECT * FROM users WHERE userName = '$userName'";
     $row = json_decode(responeCheckQuery($query));
     // print_r($row);
-    $respone = array();
+    $respone = "";
     if($row->success === false){
         $respone = "account not invalid";
-        return $respone;
     }
     else
     {
         if($passwordHash != $row->data[0] -> password){
             $respone = "password incorrect";
-            return $respone;
         }  
         else{
             $_SESSION['info_customer']['userName'] = $row->data[0]->userName;
             $_SESSION['info_customer']['fullname'] = $row->data[0]->FullName;
         }
     }
-    if(count($respone) > 0){
+    if(!$respone == ""){
         $array_respone = [
             "success" => false,
             "message" => $respone,
