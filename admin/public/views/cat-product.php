@@ -2,7 +2,6 @@
     <?php require_once './category/product/indexModel.php';
     $category = new category("sfdsdf","adas","dsadas");
     $categoryParent = $category->getParentCategory();
-    print_r($categoryParent);
     ?>
     <div class="row">
         <div class="col-4">
