@@ -12,25 +12,28 @@ $(document).ready(function() {
         $('.table-checkall tbody tr td input:checkbox').prop('checked', checked);
     });
 
-    // $(".addCat").click(function(){
-    //     var categoryName = $('#name').val();
-    //     var parentId = $('#parentId option:selected').val();
-    //     $.ajax({
-    //         url: "http://localhost:81/market/admin/category/product/indexController.php",
-    //         type: "post",
-    //         data: {
-    //             categoryName: categoryName,
-    //             parentId:parentId,
-    //         },
-    //         dataType: "json",
-    //         success: function(result) {
-    //             if (result['success'] == true) {
-    //                 alert(result['message']);
+    $(".addCat").click(function(){
+        var categoryName = $('#name').val();
+        var parentId = $('#parentId option:selected').val();
+        var addCat = "asdasd";
+        $.ajax({
+            url: "http://localhost/market/admin/category/product/controller/indexController.php",
+            type: "post",
+            data: {
+                categoryName: categoryName,
+                parentId:parentId,
+                addCat : addCat
+            },
+            dataType: "json",
+            success: function(result) {
+                if (result['success'] == true) {
+                    alert(result['message']);
 
-    //             } else {
-    //                 alert(result['message']);
-    //             }
-    //         },
-    //     });
-    // })
+                } else {
+                    alert(result['message']);
+                }
+            },
+        });
+    })
+    
 });
