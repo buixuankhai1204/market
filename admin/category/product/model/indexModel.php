@@ -1,7 +1,5 @@
 <?php 
-
-    include_once 'myhelper.php';
-
+    include_once '../../../myhelper.php';
     class category {
         public $catogoryId;
         public $userId;
@@ -37,7 +35,7 @@
             }
             // $customer->password, $customer->fullName , $customer->address, $customer->city
             $query = sprintf("INSERT INTO categories (userId, categoryName, parentId) VALUES (%s,'%s',%s)", $category->userId, $category->categoryName, $category->parentId);
-            echo $query;
+
             if (!$result = mysqli_query(connection(), $query)) {
 
                 $array_respone = [
@@ -46,26 +44,18 @@
                     "message" => "error",
                     "error" => "lay du lieu khong lieu thanh cong",
                 ];
-                return $array_respone;      
+                echo json_encode($array_respone);      
 
             }
-
-            if ($result) {
-
-                $queryNew = "SELECT * FROM category";
-                return json_decode(responeCheckQuery($queryNew));
-
-            } else {
 
                 $array_respone = [
-                    "success" => false,
-                    "status_code" => 100,
-                    "message" => "error",
-                    "error" => "lay du lieu khong lieu thanh cong",
+                    "success" => true,
+                    "status_code" => 200,
+                    "message" => "ban da them thanh cong danh muc ",
+                    "error" => "",
                 ];
-                return $array_respone;
+                echo json_encode($array_respone);      
 
-            }
 
         } catch (Exception $e) {
 
@@ -75,7 +65,7 @@
     }
 
     public function getParentCategory(){
-        $query = "SELECT * FROM categories WHERE 'parentId' = 0";
+        $query = "SELECT * FROM categories WHERE parentId = 0";
         return json_decode(responeCheckQuery($query));
 
     }
@@ -83,4 +73,3 @@
 }
 
     //function ///
-?>

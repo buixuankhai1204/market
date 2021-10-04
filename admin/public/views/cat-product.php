@@ -1,8 +1,9 @@
+
 <div id="content" class="container-fluid">
-    <?php require_once './category/product/indexModel.php';
+    <?php
+    include_once './category/product/model/indexModel.php';
     $category = new category("sfdsdf","adas","dsadas");
     $categoryParent = $category->getParentCategory();
-    print_r($categoryParent);
     ?>
     <div class="row">
         <div class="col-4">
@@ -11,7 +12,7 @@
                     Danh mục sản phẩm
                 </div>
                 <div class="card-body">
-                    <form action="http://localhost:81/market/admin/category/product/indexController.php" method="POST">
+                    <form action="" method="POST">
                         <div class="form-group">
                             <label for="name">Tên danh mục</label>
                             <input class="form-control" type="text" name="categoryName" id="name">

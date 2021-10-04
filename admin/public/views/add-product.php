@@ -1,3 +1,7 @@
+
+
+
+
 <div id="content" class="container-fluid">
     <div class="card">
         <div class="card-header font-weight-bold">
@@ -5,6 +9,11 @@
         </div>
         <div class="card-body">
             <form>
+            
+
+            <textarea name="editor1" id="editor1" class="ckeditor1" rows="10" cols="80">
+
+            </textarea>
                 <div class="row">
                     <div class="col-6">
                         <div class="form-group">
@@ -60,5 +69,5 @@
                 <button type="submit" class="btn btn-primary">Thêm mới</button>
             </form>
         </div>
-    </div>  //ajax goi toi controller, tuong tu nhu da lam ben kia 
+    </div>
 </div>

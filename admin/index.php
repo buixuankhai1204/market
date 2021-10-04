@@ -8,10 +8,19 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.1/css/all.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.1/css/solid.min.css">
     <link rel="stylesheet" href="./public/css/style.css">
+<script type="text/javascript" src="./public/ckeditor/ckeditor.js"></script>
+<script>
+    function init() {  
+      CKEDITOR.replace( 'editor1' );
+    }
+  </script>
     <title>Admintrator</title>
 </head>
 
-<body>
+<?php
+    include_once 'myhelper.php';
+?>
+<body onload="init()">
     <div id="warpper" class="nav-fixed">
         <nav class="topnav shadow navbar-light bg-white d-flex">
             <div class="navbar-brand"><a href="?">UNITOP ADMIN</a></div>
