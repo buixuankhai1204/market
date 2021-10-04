@@ -70,6 +70,11 @@
 
     }
 
+    public function getAllCategory(){
+        $query = "SELECT * FROM categories";
+        return json_decode(responeCheckQuery($query),true);
+    }
+
 }
 
     //function ///

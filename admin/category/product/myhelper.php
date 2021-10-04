@@ -56,7 +56,6 @@ function checkPassword($userName,$password){
     $passwordHash = getPasswordHash($userName,$password);
     $query = "SELECT * FROM users WHERE userName = '$userName'";
     $row = json_decode(responeCheckQuery($query));
-    // print_r($row);
     $respone = "";
     if($row->success === false){
         $respone = "account not invalid";
@@ -85,20 +84,6 @@ function checkPassword($userName,$password){
         ];
         return $array_respone;
     }
-}
-
-function getDatatree($data, $parent_id = 0, $level = 0){
-    $result = [];
-    foreach($data as $item){
-        if($item['parentId'] == $parent_id){
-            $item['level'] = $level;
-            $result[] = $item;
-            unset($data[$item['categoryId']]);
-            $child = getDatatree($data, $item['categoryId'], $level + 1 );
-            $result = array_merge($result, $child);
-        }
-    }
-    return $result;
 }
 //nhin ra van de chua 
 //tan dung cai success do de check chu Khoa oke

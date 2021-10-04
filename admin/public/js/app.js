@@ -12,12 +12,12 @@ $(document).ready(function() {
         $('.table-checkall tbody tr td input:checkbox').prop('checked', checked);
     });
 
-    $(".addCat").click(function(){
+    $("#addCat").click(function(){
         var categoryName = $('#name').val();
         var parentId = $('#parentId option:selected').val();
         var addCat = "asdasd";
         $.ajax({
-            url: "http://localhost/market/admin/category/product/controller/indexController.php",
+            url: "http://localhost:81/market/admin/category/product/controller/indexController.php",
             type: "post",
             data: {
                 categoryName: categoryName,
