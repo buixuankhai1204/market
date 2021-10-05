@@ -10,7 +10,7 @@
     {
         $this->userId = $userId;
         $this->categoryName = $categoryName;
-        $this->parentId = $parentId;
+        $this->parentId = $parentId;đâsd
     }
 
     public function addCategory(category $category)
