@@ -1,9 +1,10 @@
 
 <div id="content" class="container-fluid">
     <?php
-    include_once './category/product/model/indexModel.php';
+    require_once './category/product/model/indexModel.php';
     $category = new category("sfdsdf","adas","dsadas");
     $categoryParent = $category->getParentCategory();
+
     ?>
     <div class="row">
         <div class="col-4">
@@ -26,7 +27,7 @@
                                 <?php }?>
                             </select>
                         </div>
-                        <button type="submit" class="btn btn-primary addCat">Thêm mới</button>
+                        <button type="submit" class="btn btn-primary addCat" id="addCat">Thêm mới</button>
                     </form>
                 </div>
             </div>

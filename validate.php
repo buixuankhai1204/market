@@ -40,4 +40,13 @@
         return $phone_number;
     }
  }
+
+ function validatePrice($Price){
+    $parttern = "/^[0-9_\.]$/";
+     if(!preg_match($parttern,$Price)){
+        $respone = "nhập giá đúng định dạng: chỉ chứa ký tự từ 0-9";
+        return $respone;
+     }
+     return "";
+ }
 ?>
